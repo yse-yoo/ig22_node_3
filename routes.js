@@ -6,12 +6,13 @@ const router = express.Router()
 //商品を ID で検索(けんさく)
 router.get('/item/:id', (req, res) => {
     const id = req.params.id
-    let message = '商品がみつかりませんでした'
-    if (id && item.values[id]) {
-        let _item = item.values[id]
-        message = _item.name + 'の値段は' + _item.price + '円です'
+    let data = {}
+    data.title = '商品データ'
+    data.item = null
+    if (item.values[id]) {
+        data.item = item.values[id]
     }
-    res.send(message)
+    res.render('item/show.ejs', data)
 })
 
 router.get('/user/edit/:id', (req, res) => {
@@ -46,8 +47,15 @@ router.get('/', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    res.send('This is Profile Page!!!!')
+    let data = {}
+    data.title = 'Profile'
+    res.render('profile/index.ejs', data)
 })
 
+router.get('/login', (req, res) => {
+    let data = {}
+    data.title = 'ログイン'
+    res.render('login/index.ejs', data)
+})
 
 module.exports = router
